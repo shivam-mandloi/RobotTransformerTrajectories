@@ -1,0 +1,168 @@
+[
+  {
+    "task_id": 1,
+    "task_name": "Standard Navigation",
+    "description": "Basic point-to-point movement with balanced costs.",
+    "example_command": "Move from the starting point to (10, 5).",
+    "meta_data": {
+      "weights": { "w_smooth": 1.0, "w_dist": 1.0, "w_obs": 1.0 },
+      "constraints": { "start_vel": 0.0, "end_vel": 0.0 },
+      "obstacles": "none"
+    }
+  },
+  {
+    "task_id": 2,
+    "task_name": "Speed Run / Shortest Path",
+    "description": "Prioritizes distance minimization over smoothness (sharp turns allowed).",
+    "example_command": "Take the shortest possible route to the target.",
+    "meta_data": {
+      "weights": { "w_smooth": 0.1, "w_dist": 10.0, "w_obs": 1.0 },
+      "constraints": { "start_vel": "free", "end_vel": "free" },
+      "obstacles": "sparse"
+    }
+  },
+  {
+    "task_id": 3,
+    "task_name": "Cinematic / Smooth Mode",
+    "description": "Prioritizes minimizing jerk/snap for fluid motion.",
+    "example_command": "Fly smoothly to the destination, avoid sudden movements.",
+    "meta_data": {
+      "weights": { "w_smooth": 10.0, "w_dist": 0.5, "w_obs": 1.0 },
+      "constraints": { "start_vel": 0.0, "end_vel": 0.0 },
+      "obstacles": "sparse"
+    }
+  },
+  {
+    "task_id": 4,
+    "task_name": "Single Obstacle Avoidance",
+    "description": "Navigate around a known static obstacle.",
+    "example_command": "Go to the goal but avoid the red circle in the center.",
+    "meta_data": {
+      "weights": { "w_smooth": 1.0, "w_dist": 1.0, "w_obs": 5.0 },
+      "constraints": { "start_vel": 0.0, "end_vel": 0.0 },
+      "obstacles": "single_center"
+    }
+  },
+  {
+    "task_id": 5,
+    "task_name": "Narrow Corridor Traversal",
+    "description": "Passing through a narrow gap requiring high precision.",
+    "example_command": "Carefully navigate through the narrow doorway.",
+    "meta_data": {
+      "weights": { "w_smooth": 0.5, "w_dist": 2.0, "w_obs": 10.0 },
+      "constraints": { "start_vel": 0.0, "end_vel": 0.0 },
+      "obstacles": "narrow_gap"
+    }
+  },
+  {
+    "task_id": 6,
+    "task_name": "Safety First / Wide Berth",
+    "description": "Maximizes distance from obstacles (high repulsion).",
+    "example_command": "Reach the target while keeping a safe distance from all walls.",
+    "meta_data": {
+      "weights": { "w_smooth": 2.0, "w_dist": 0.5, "w_obs": 20.0 },
+      "constraints": { "start_vel": 0.0, "end_vel": 0.0 },
+      "obstacles": "cluttered"
+    }
+  },
+  {
+    "task_id": 7,
+    "task_name": "Emergency Stop / Docking",
+    "description": "Reaching a point with strict zero velocity/acceleration constraints.",
+    "example_command": "Approach the charging station and come to a complete stop.",
+    "meta_data": {
+      "weights": { "w_smooth": 5.0, "w_dist": 1.0, "w_obs": 1.0 },
+      "constraints": { "start_vel": "any", "end_vel": 0.0, "end_accel": 0.0 },
+      "obstacles": "none"
+    }
+  },
+  {
+    "task_id": 8,
+    "task_name": "Aggressive Cornering",
+    "description": "High velocity navigation around corners.",
+    "example_command": "Cut the corner to reach the checkpoint quickly.",
+    "meta_data": {
+      "weights": { "w_smooth": 0.2, "w_dist": 8.0, "w_obs": 2.0 },
+      "constraints": { "start_vel": 5.0, "end_vel": 5.0 },
+      "obstacles": "corner"
+    }
+  },
+  {
+    "task_id": 9,
+    "task_name": "Waypoint Navigation",
+    "description": "Visiting an intermediate point before the final goal.",
+    "example_command": "Go to the goal via the supply depot at (5,5).",
+    "meta_data": {
+      "weights": { "w_smooth": 1.0, "w_dist": 1.0, "w_obs": 1.0 },
+      "constraints": { "intermediate_waypoint": [5, 5] },
+      "obstacles": "none"
+    }
+  },
+  {
+    "task_id": 10,
+    "task_name": "Slalom / Weaving",
+    "description": "Oscillating path through a linear array of obstacles.",
+    "example_command": "Weave through the pillars to reach the other side.",
+    "meta_data": {
+      "weights": { "w_smooth": 5.0, "w_dist": 1.0, "w_obs": 8.0 },
+      "constraints": { "start_vel": 2.0, "end_vel": 2.0 },
+      "obstacles": "linear_array"
+    }
+  },
+  {
+    "task_id": 11,
+    "task_name": "Long Range Efficient",
+    "description": "A long trajectory where energy (path length) is the only concern.",
+    "example_command": "Travel to the far sector efficiently.",
+    "meta_data": {
+      "weights": { "w_smooth": 0.5, "w_dist": 5.0, "w_obs": 0.5 },
+      "constraints": { "start_vel": 1.0, "end_vel": 1.0 },
+      "obstacles": "sparse"
+    }
+  },
+  {
+    "task_id": 12,
+    "task_name": "U-Turn Maneuver",
+    "description": "Start and End points are close, but facing opposite directions.",
+    "example_command": "Perform a U-turn and return to the start line.",
+    "meta_data": {
+      "weights": { "w_smooth": 4.0, "w_dist": 1.0, "w_obs": 1.0 },
+      "constraints": { "start_heading": 0.0, "end_heading": 3.14 },
+      "obstacles": "none"
+    }
+  },
+  {
+    "task_id": 13,
+    "task_name": "Stealth / Perimeter Hugging",
+    "description": "Contrary to standard logic, this path hugs the boundaries/walls.",
+    "example_command": "Sneak along the wall to reach the exit.",
+    "meta_data": {
+      "weights": { "w_smooth": 1.0, "w_dist": 1.0, "w_obs": -2.0 },
+      "note": "Negative obstacle weight implies attraction to obstacles (walls).",
+      "constraints": { "start_vel": 1.0, "end_vel": 1.0 },
+      "obstacles": "walls"
+    }
+  },
+  {
+    "task_id": 14,
+    "task_name": "Dynamic Start (Fly-through)",
+    "description": "Starting with high initial velocity, no stopping at goal.",
+    "example_command": "Pass through the checkpoint at high speed.",
+    "meta_data": {
+      "weights": { "w_smooth": 3.0, "w_dist": 2.0, "w_obs": 1.0 },
+      "constraints": { "start_vel": 10.0, "end_vel": 10.0 },
+      "obstacles": "none"
+    }
+  },
+  {
+    "task_id": 15,
+    "task_name": "Grid Exploration",
+    "description": "Visiting a sequence of points to cover an area.",
+    "example_command": "Patrol the four corners of the room.",
+    "meta_data": {
+      "weights": { "w_smooth": 1.0, "w_dist": 5.0, "w_obs": 1.0 },
+      "constraints": { "waypoints": [[0,10], [10,10], [10,0]] },
+      "obstacles": "central"
+    }
+  }
+]

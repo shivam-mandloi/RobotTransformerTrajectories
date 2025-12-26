@@ -1,0 +1,57 @@
+[
+  {
+    "task_id": 16,
+    "task_name": "Round Trip / Patrol",
+    "description": "Navigate to a target location and return to the original starting position.",
+    "example_command": "Go to the supply station at (8, 8) and then return to base.",
+    "meta_data": {
+      "waypoint_sequence": ["target_pos", "start_pos"],
+      "weights": { "w_smooth": 1.0, "w_dist": 1.0, "w_obs": 2.0 },
+      "obstacles": "random"
+    }
+  },
+  {
+    "task_id": 17,
+    "task_name": "Multi-Point Perimeter Check",
+    "description": "Visit several specific coordinates in a sequence to patrol an area.",
+    "example_command": "Move to (2, 8), then (8, 8), and finally (8, 2) to check the perimeter.",
+    "meta_data": {
+      "waypoint_sequence": [[2, 8], [8, 8], [8, 2]],
+      "weights": { "w_smooth": 1.0, "w_dist": 1.0, "w_obs": 1.0 },
+      "obstacles": "sparse"
+    }
+  },
+  {
+    "task_id": 18,
+    "task_name": "Zig-Zag Search",
+    "description": "Move in a staggered pattern to cover a specific area of the 2D grid.",
+    "example_command": "Perform a zig-zag search by moving to (2, 2), (2, 4), (8, 4), and (8, 6).",
+    "meta_data": {
+      "waypoint_sequence": [[2, 2], [2, 4], [8, 4], [8, 6]],
+      "weights": { "w_smooth": 0.5, "w_dist": 2.0, "w_obs": 1.0 },
+      "obstacles": "none"
+    }
+  },
+  {
+    "task_id": 19,
+    "task_name": "Sequential Delivery",
+    "description": "Stop at multiple drop-off points in a specific order.",
+    "example_command": "Drop off packages at (4, 1), (5, 5), and then head to the exit at (9, 9).",
+    "meta_data": {
+      "waypoint_sequence": [[4, 1], [5, 5], [9, 9]],
+      "weights": { "w_smooth": 1.0, "w_dist": 1.5, "w_obs": 1.0 },
+      "obstacles": "cluttered"
+    }
+  },
+  {
+    "task_id": 20,
+    "task_name": "Obstacle Hook Maneuver",
+    "description": "Move to a point specifically chosen to 'loop' around a central obstacle.",
+    "example_command": "Go around the center by passing through (5, 8) before reaching the goal at (10, 10).",
+    "meta_data": {
+      "waypoint_sequence": [[5, 8], [10, 10]],
+      "weights": { "w_smooth": 1.0, "w_dist": 1.0, "w_obs": 5.0 },
+      "obstacles": "central"
+    }
+  }
+]
